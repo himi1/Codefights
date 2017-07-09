@@ -384,3 +384,11 @@ def amicableNumbers(n):
 ###
 def centuryFromYear(year) :
     return (year + 99) / 100
+
+###
+def differentSubstringsTrie(a):
+    t = set()
+    for i in range(len(a)):
+        for j in range(i+1,len(a)+1):
+            t.add( a[i:j])
+    return len(t)
