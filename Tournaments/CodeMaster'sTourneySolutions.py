@@ -677,3 +677,97 @@ def rightTriangle(sides):
     sides = sorted(sides)
     if (sides[0]**2 + sides[1]**2 == sides[2]**2): return True
     return False
+
+#
+def bfsComponentSize(matrix):
+    visited = [False for i in range(len(matrix))]
+    queue = []
+    componentSize = 0
+
+    visited[1] = True
+    queue.append(1)
+    while len(queue) > 0:
+        currentVertex = queue.pop()
+        visited[currentVertex] = True
+        componentSize += 1
+        for nextVertex in range(len(matrix)):
+            if matrix[currentVertex][nextVertex] and not visited[nextVertex]:
+                visited[nextVertex] = True
+                queue.append(nextVertex)
+
+    return componentSize
+
+#
+def waterTubes(water, flowPerMinute):
+    result = 0
+
+    for i in range(len(water)):
+        minutes = water[i] / flowPerMinute[i]
+        if water[i] % flowPerMinute[i] != 0:
+            minutes += 1
+
+        if result < minutes:
+            result = minutes
+    return result
+
+#
+def isEarlier(time1, time2):
+     if (time1[0] * 60 + time1[1] < time2[0] * 60 + time2[1]): return True
+
+     return False
+
+#
+def dfsComponentSize(matrix, vertex):
+
+    def dfs(currentVertex, visited):
+        visited[currentVertex] = True
+        componentSize = 1
+        for nextVertex in range(len(matrix)):
+            if matrix[currentVertex][nextVertex] and not visited[nextVertex]:
+                componentSize += dfs(nextVertex, visited)
+        return componentSize
+
+    visited = []
+
+    for i in range(len(matrix)):
+        visited.append(False)
+
+    componentSize = dfs(vertex, visited)
+
+    return componentSize
+
+#
+def quickSort(a, l, r):
+
+    if l >= r:
+        return a
+
+    x = a[l]
+    i = l
+    j = r
+
+    while i <= j:
+        while a[i] < x:
+            i += 1
+        while a[j] > x:
+            j -= 1
+        if i <= j:
+            t = a[i]
+            a[i] = a[j]
+            a[j] = t
+            i += 1
+            j -= 1
+
+    quickSort(a, l, j)
+    quickSort(a, i, r)
+
+    return a
+
+#
+def isIPv4Address(inputString):
+    s = inputString.split('.')
+    if len(s) != 4: return False
+    for each in s:
+        if (len(each)==0) or (not each.isdigit()) or (not 0 <= int(each)<= 255):
+            return False
+    return True
