@@ -390,5 +390,82 @@ def differentSubstringsTrie(a):
     t = set()
     for i in range(len(a)):
         for j in range(i+1,len(a)+1):
-            t.add( a[i:j])
+            t.add(a[i:j])
     return len(t)
+
+###
+def bishopDiagonal(bishop1, bishop2):
+    cols = 'abcdefgh'
+    rows = '12345678'
+
+    def bishopMoves(cell):
+        col, row = cols.index(cell[0]), rows.index(cell[1])
+        for c in range(8):
+            for r in (row - (col - c), row - (c - col)):
+                if 0 <= r < 8:
+                    yield cols[c] + rows[r]
+
+    b1 = set(bishopMoves(bishop1))
+    b2 = set(bishopMoves(bishop2))
+    u = b1.intersection(b2)
+    if len(u) == 0:
+        return sorted([bishop1, bishop2])
+    else:
+        s = sorted(u, reverse = bishop2 < bishop1)
+        return sorted([s[0], s[-1]])
+
+    Bx = ord(bishop[0])-ord("a")
+    By = ord(bishop[1])-ord("0")
+    Px = ord(pawn[0])-ord("a")
+    Py = ord(pawn[1])-ord("0")
+    if Bx == Px:
+        return False
+    elif abs(((By)-(Py))/((Bx)-(Px))) == 1:
+        return True
+    else:
+        return False
+
+def Dir(bishop, pawn):
+    Bx = ord(bishop[0])-ord("a")
+    By = ord(bishop[1])-ord("0")
+    Px = ord(pawn[0])-ord("a")
+    Py = ord(pawn[1])-ord("0")
+    return ((By)-(Py))/((Bx)-(Px))
+
+def bishopDiagonal(b1, b2):
+    QS1 = [['a7','b8'],['a6','c8'],['a5','d8'],['a4','e8'],['a3','f8'],['a2','g8'],['a1','h8'],['b1','h7'],['c1','h6'],['d1','h5'],['e1','h4'],['f1','h3'],['g1','h2']]
+    QSn1 = [['a2','b1'],['a3','c1'],['a4','d1'],['a5','e1'],['a6','f1'],['a7','g1'],['a8','h1'],['b8','h2'],['c8','h3'],['d8','h4'],['e8','h5'],['f8','h6'],['g8','h7']]
+
+    if bishopAndPawn(b1,b2):
+        if Dir(b1,b2) == 1.0:
+            print('1')
+            for i in range(len(QS1)):
+                if bishopAndPawn(b1,QS1[i][0]) and bishopAndPawn(b2,QS1[i][0]):
+                    return QS1[i]
+                elif(b1 ==QS1[i][0] or b2 == QS1[i][0]):
+                    return QS1[i]
+        else:
+            print('-1')
+            for i in range(len(QSn1)):
+                if bishopAndPawn(b1,QSn1[i][0]) and bishopAndPawn(b2,QSn1[i][0]):
+                    return QSn1[i]
+                elif(b1 == QSn1[i][0] or b2 == QSn1[i][0]):
+                    return QSn1[i]
+    else:
+        x = [b1,b2]
+        x.sort()
+        return x
+
+###
+def passwordCheckRegExp(inputString):
+    if len(inputString) < 5:
+        return False
+    L = U = D = False
+    for i in range(len(inputString)):
+        if 'a' <= inputString[i] <= 'z':
+            L = True
+        if 'A' <= inputString[i] <= 'Z':
+            U =  True
+        if '0' <= inputString[i] <= '9':
+            D = True
+    return L and U and D and len(inputString) >= 5
