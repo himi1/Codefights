@@ -348,3 +348,39 @@ def cellsJoining(table, coords):
                 table[r][c] = ' '
     table = [''.join(i) for i in table]
     return table
+
+###
+def divNumber(k, l, r):
+
+    ans = 0
+    for i in range(l, r + 1):
+        n = i
+        divs = 1
+        j = 2
+        while j * j <= n:
+            pow_ = 0
+            while(n%j == 0):
+                pow_ += 1
+                n/= j
+            divs *= 1 + pow_
+            if divs > k:
+                break
+            j += 1
+        if n > 1:
+            divs *= 2
+        if divs == k:
+            ans += 1
+
+    return ans
+
+###
+def amicableNumbers(n):
+    if(n<=220): return 220
+    if(n>220 and n<=284): return 284
+    if(n>284 and n<=1184): return 1184
+
+    return 1210
+
+###
+def centuryFromYear(year) :
+    return (year + 99) / 100
