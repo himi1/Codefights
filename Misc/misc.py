@@ -469,3 +469,38 @@ def passwordCheckRegExp(inputString):
         if '0' <= inputString[i] <= '9':
             D = True
     return L and U and D and len(inputString) >= 5
+
+###
+def isSumOfConsecutive(n):
+    for i in range(1, n):
+        j = i
+        t = n
+        while t > 0:
+            t -= j
+            j += 1
+        if t == 0: return True
+    return False
+
+###
+def isSubstitutionCipher(string1, string2):
+    dict = {}
+    for i  in range(len(string1)):
+        s = string1[i]
+        s1 = string2[i]
+        if s in dict.keys():
+            if s1 != dict[s]:return False
+        else:
+            dict[s]=s1
+
+    return len(set(dict.values()))==len(dict.values())
+
+###
+def caesarBoxCipherEncoding(s):
+
+    n = int(len(s)**0.5)
+    r = ''
+
+    for i in range(n):
+        for j in range(n):
+            r+=s[n*j+i]
+    return r

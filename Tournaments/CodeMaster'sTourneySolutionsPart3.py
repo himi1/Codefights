@@ -381,3 +381,363 @@ def passwordCheckRegExp(inputString):
         return True
 
     return False
+###
+def maxSubmatrixSum(matrix, n, m):
+
+    result = 0
+    for i in range(len(matrix) - n + 1):
+        for j in range(len(matrix[0]) - m + 1):
+            sumValue = 0
+            for x in range(n):
+                for y in range(m):
+                    sumValue += matrix[i + x][j + y]
+            if i == 0 and j == 0 or sumValue > result:
+                result = sumValue
+
+    return result
+
+###
+def largestDistance(a):
+
+    mx = [a[0], a[1]]
+    mn = [a[0], a[1]]
+    for i in range(len(a)):
+        k = i % 2
+        if a[i] > mx[k]:
+            mx[k] = a[i]
+        elif a[i] < mn[k]:
+            mn[k] = a[i]
+    return max(mx[0] - mn[0], mx[1] - mn[1])
+
+###
+def checkSameElementExistence(arr1, arr2):
+    x = set(arr1)
+    y = set(arr2)
+
+    return len(x & y) > 0
+
+###
+def evenDigitsOnly(n):
+
+    if n == 0:
+        return True
+    if n % 2 != 0:
+        return False
+    return evenDigitsOnly(n / 10)
+
+###
+def isMonotonous(sequence):
+    if len(sequence) == 1:
+        return True
+    direction =  sequence[1] - sequence[0]
+    for i in range(0, len(sequence) - 1):
+        if direction * (sequence[i + 1] - sequence[i]) <= 0:
+            return False
+    return True
+
+###
+def arrayConversion(l):
+    i = 1
+    A = []
+    B = []
+    while len(l) > 1:
+        if i == 1:
+            i = 2
+            A = l[::2]
+            B = l[1::][::2]
+            l = [a+b for a,b in zip(A,B)]
+        else:
+            i = 1
+            A = l[::2]
+            B = l[1::][::2]
+            l = [a*b for a,b in zip(A,B)]
+
+    return l[0]
+
+###
+def appleBoxes(k):
+    sum = 0
+    x = 0
+    while x <= k:
+        if x % 2 == 0:
+            sum += x * x
+        else:
+            sum -= x * x
+        x += 1
+
+    return sum
+
+###
+def howManySundays(n, startDay):
+    week = ['Sunday', 'Monday', 'Tuesday', 'Wednesday',
+            'Thursday', 'Friday', 'Saturday']
+    startIndex = -1
+
+    for i in range(len(week)):
+        if week[i] == startDay:
+            startIndex = i
+            break
+
+    return  (n + startIndex) / 7
+
+###
+def maxDigit(n):
+    return int(sorted(list(str(n)))[-1])
+
+###
+def countSumOfTwoRepresentations(n, l, r):
+    result = 0
+
+    for a in range(l, r + 1):
+        b = a
+        while b <= r:
+            if a + b == n:
+                result += 1
+            b += 1
+
+    return result
+
+###
+def fractionSubtraction(a, b):
+
+    def gcdEuclid(a, b):
+        if a == 0:
+            return b
+        return  gcdEuclid(b % a, a)
+
+    c = [a[0] * b[1] - a[1] * b[0], a[1] * b[1]]
+    gcd = gcdEuclid(c[0], c[1])
+
+    c[0] /= gcd
+    c[1] /= gcd
+
+    return c
+
+###
+def telephoneGame(m):
+    t = -1
+    for i in range(len(m) - 1):
+        if m[i] != m[i + 1]:
+            t = i + 1
+            break
+    return t
+
+###
+def quickSort(a, l, r):
+
+    if l >= r:
+        return a
+
+    x = a[l]
+    i = l
+    j = r
+
+    while i <= j:
+        while a[i] < x:
+            i += 1
+        while a[j] > x:
+            j -= 1
+        if i <= j:
+            t = a[i]
+            a[i] = a[j]
+            a[j] = t
+            i += 1
+            j -= 1
+
+    quickSort(a, l, j)
+    quickSort(a, i, r)
+
+    return a
+
+###
+def truncateString(s):
+
+    def truncate(l, r):
+        if l >= r:
+            return ''
+        newL = l
+        newR = r
+        left = ord(s[l]) - ord('0')
+        right = ord(s[r - 1]) - ord('0')
+        if left % 3 == 0:
+            newL+= 1
+        elif right % 3 == 0:
+            newR -= 1
+        elif (left + right) % 3 == 0:
+            newL += 1
+            newR -= 1
+        else:
+            return s[l : r]
+
+        return truncate(newL, newR)
+
+    return truncate(0, len(s))
+
+###
+def sumOfMultiples(n, k):
+    sum = 0
+    for i in range(k, n+1):
+        if (i % k == 0): sum += i
+    return sum
+
+###
+def insideCircle(point, center, radius):
+
+    def sqr(value):
+        return value * value
+
+    if sqr(point[0] - center[0]) + sqr(point[1] - center[1]) <= sqr(radius):
+        return True
+    return False
+
+###
+def factorSum(n):
+    def primeFacts(n):
+        list= []
+        i = 2
+        while i<=n:
+            while n%i == 0:
+                list.append(i)
+                n /= i
+            i+= 1
+        return list
+
+    while sum(primeFacts(n)) != n:
+        n = sum(primeFacts(n))
+    return n
+
+###
+def isPower(n):
+    for i in range(401):
+        for j in range(2,401):
+            if i**j == n:
+                return True
+            elif i**j > n:
+                break
+    return False
+
+###
+def generatePalindromes(charactersSet):
+
+    result = []
+
+    N = len(charactersSet)
+    palindrome = [0] * N
+    letterCnt = [0] * 26
+
+    for i in range(N):
+        letterCnt[ord(charactersSet[i]) - ord('a')] += 1
+    if N % 2 == 1:
+        for i in range(26):
+            if letterCnt[i] % 2 == 1:
+                letterCnt[i] -= 1
+                palindrome[N / 2] = chr(ord('a') + i)
+                break
+
+    def generate(idx):
+        if idx >= (N) / 2:
+            result.append(''.join(palindrome))
+            return
+        for i in range(26):
+            if letterCnt[i] >= 2:
+                letterCnt[i] -= 2
+                palindrome[idx] = chr(ord('a') + i)
+                palindrome[N - idx - 1] = chr(ord('a') + i)
+                generate(idx + 1)
+                letterCnt[i] += 2
+
+    generate(0)
+    return result
+
+###
+def truncateString(s):
+
+    def truncate(l, r):
+        if l >= r:
+            return ''
+        newL = l
+        newR = r
+        left = ord(s[l]) - ord('0')
+        right = ord(s[r - 1]) - ord('0')
+        if left % 3 == 0:
+            newL += 1
+        elif right % 3 == 0:
+            newR -= 1
+        elif (left + right) % 3 == 0:
+            newL += 1
+            newR -= 1
+        else:
+            return s[l : r]
+
+        return truncate(newL, newR)
+
+    return truncate(0, len(s))
+
+###
+def equidistantTriples(coordinates):
+
+    ans = 0
+    for i in range(1, len(coordinates)):
+        left = i - 1
+        right = i + 1
+        while left >= 0 and right < len(coordinates):
+            distL = - coordinates[left] + coordinates[i]
+            distR = coordinates[right] - coordinates[i]
+            if distL == distR:
+                ans += 1
+                left -= 1
+                right += 1
+            elif distL < distR:
+                left -= 1
+            else:
+                right += 1
+
+    return ans
+
+###
+def constructSubmatrix(matrix, rowsToDelete, columnsToDelete):
+
+    res = []
+    useRow = []
+    useColumn = []
+
+    for i in range(len(matrix)):
+        useRow.append(True)
+    for i in range(len(matrix[0])):
+        useColumn.append(True)
+
+    for i in range(len(rowsToDelete)):
+        useRow[ rowsToDelete[i] ] = False
+    for i in range(len(columnsToDelete)):
+        useColumn[ columnsToDelete[i] ] = False
+
+    for i in range(len(matrix)):
+        if useRow[i]:
+            res.append([])
+            for j in range(len(matrix[0])):
+                if useColumn[j]:
+                    res[len(res) - 1].append(matrix[i][j])
+
+    return res
+
+###
+def rectanglesIntersection(a, b, c, d):
+    intersection = []
+    for i in range(2):
+        if a[i] > b[i]:
+            t = a[i]
+            a[i] = b[i]
+            b[i] = t
+        if c[i] > d[i]:
+            t = c[i]
+            c[i] = d[i]
+            d[i] = t
+        if  b[i] < c[i] or a[i] > d[i]:
+            return 0
+        intersection += [min(b[i], d[i]) - max(a[i], c[i])]
+
+    return intersection[0] * intersection[1]
+
+###
+def swapCase(text):
+    return text.swapcase()
