@@ -1,9 +1,5 @@
+###
 def countIncreasingSequences(n, k):
-
-    ##
-    #  list dp (short for dynamic programming)
-    #  is used for storing the interim values.
-    ##
     dp = []
     ans = 0
 
@@ -24,7 +20,7 @@ def countIncreasingSequences(n, k):
 
     return ans
 
-#
+###
 def maxDivisor(left, right, divisor):
 
     i = right
@@ -34,7 +30,7 @@ def maxDivisor(left, right, divisor):
         i -= 1
     return  -1
 
-#
+###
 def eulersTotientFunction(n):
     div = 2
     r = n
@@ -50,7 +46,7 @@ def eulersTotientFunction(n):
 
     return r
 
-#
+###
 def candles(candlesNumber, makeNew):
     burned = 0
     leftovers = 0
@@ -61,7 +57,7 @@ def candles(candlesNumber, makeNew):
         leftovers %= makeNew
     return burned
 
-#
+###
 def longestWord(text):
     answer = ''
     current = []
@@ -77,11 +73,11 @@ def longestWord(text):
 
     return answer
 
-#
+###
 def isDigit(symbol):
     return symbol.isdigit()
 
-#
+###
 def crossingSum(matrix, row, column):
 
     result = 0
@@ -93,7 +89,7 @@ def crossingSum(matrix, row, column):
 
     return result
 
-#
+###
 def digitDistanceNumber(n):
     result = 0
     lastDigit = n % 10
@@ -107,7 +103,7 @@ def digitDistanceNumber(n):
 
     return result
 
-#
+###
 def isInfiniteProcess(a, b):
     while (a != b):
         a+= 1
@@ -117,7 +113,7 @@ def isInfiniteProcess(a, b):
 
     return False
 
-#
+###
 def isDivisibleBy3(inputString):
     digitSum = 0
     leftBound = ord('0')
@@ -140,7 +136,7 @@ def isDivisibleBy3(inputString):
 
     return answer
 
-#
+###
 def gcdNaive(a, b):
 
     gcd = 1
@@ -150,7 +146,7 @@ def gcdNaive(a, b):
 
     return gcd
 
-#
+###
 def permutationShift(permutation):
     min = max = 0
     for i in range(len(permutation)):
@@ -161,7 +157,7 @@ def permutationShift(permutation):
 
     return max - min
 
-#
+###
 def hangman(word, letters):
 
     neededLetters = [False] * 26
@@ -185,7 +181,7 @@ def hangman(word, letters):
 
     return need == 0
 
-#
+###
 def truncateString(s):
 
     def truncate(l, r):
@@ -208,7 +204,7 @@ def truncateString(s):
 
     return truncate(0, len(s))
 
-#
+###
 def nontransitiveDice(dice):
     count = len(dice)
     l = len(dice[0])
@@ -232,7 +228,7 @@ def nontransitiveDice(dice):
         return False
     return True
 
-#
+###
 def arrayMinimumIndex(inputArray):
 
     indexOfMinimum = 0
@@ -241,7 +237,7 @@ def arrayMinimumIndex(inputArray):
             indexOfMinimum = i
     return indexOfMinimum
 
-#
+###
 def factorizedGCD(a, b):
     j = 0
     result = 1
@@ -253,7 +249,7 @@ def factorizedGCD(a, b):
             j += 1
     return result
 
-#
+###
 def halvingSum(n):
     sum = 0
     i = n
@@ -262,7 +258,7 @@ def halvingSum(n):
         i /= 2
     return sum
 
-#
+###
 def stringsCrossover(inputArray, result):
 
     answer = 0
@@ -279,7 +275,7 @@ def stringsCrossover(inputArray, result):
                 answer += 1
     return answer
 
-#
+###
 def hailstoneSequence(n):
     t = 0
     while n != 1:
@@ -290,7 +286,7 @@ def hailstoneSequence(n):
         t += 1
     return t
 
-#
+###
 def fibonacciIndex(n):
 
   a = 0
@@ -304,7 +300,7 @@ def fibonacciIndex(n):
 
   return i
 
-#
+###
  def fractionDivision(a, b):
 
     def gcdEuclid(a, b):
@@ -320,7 +316,7 @@ def fibonacciIndex(n):
 
     return c
 
-#
+###
 def maxSubarray(inputArray):
         currentMax = 0
         result = 0
@@ -331,7 +327,7 @@ def maxSubarray(inputArray):
 
         return result
 
-#
+###
 def piecesOfDistinctLengths(strawLength):
     i = 1
     while ((i + 1) * (i + 2) / 2 <= strawLength):
@@ -339,7 +335,7 @@ def piecesOfDistinctLengths(strawLength):
 
     return i
 
-#
+###
 def piecesOfDistinctLengths(strawLength):
     t = 1
     s = 0
@@ -348,7 +344,7 @@ def piecesOfDistinctLengths(strawLength):
         t += 1
     return t - 1
 
-#
+###
 def checkIncreasingSequence(seq):
 
     for i in range(1, len(seq)):
@@ -357,7 +353,7 @@ def checkIncreasingSequence(seq):
 
     return True
 
-#
+###
 def bettingGame(l):
 
     s = 0
@@ -368,7 +364,7 @@ def bettingGame(l):
 
     return  s % len(l) == 0
 
-#
+###
 def isInformationConsistent(evidences):
     for i in range(len(evidences[0])):
         t = 0
@@ -379,15 +375,15 @@ def isInformationConsistent(evidences):
                 t += evidences[j][i]
     return True
 
-#
+###
 def applesDistribution(apples, boxCapacity, maxResidue):
-    result = 0
+    t = 0
     for i in range(1, boxCapacity + 1):
-        if apples % boxCapacity <= maxResidue:
-            result += 1
-    return result
+        if apples % i <= maxResidue:
+            t += 1
+    return t
 
-#
+###
 def twoArraysNthElement(array1, array2, n):
 
     def lowerBound(array, elem):
@@ -417,11 +413,11 @@ def twoArraysNthElement(array1, array2, n):
         return array1[l]
     return twoArraysNthElement(array2, array1, n)
 
-#
+###
 def isSuspiciousRespondent(ans1, ans2, ans3):
      return  (ans1 and ans2 and ans3) or (not ans1 and not ans2 and not ans3)
 
-#
+###
 def fractionSum(a, b):
 
     def gcdEuclid(a, b):
@@ -437,7 +433,7 @@ def fractionSum(a, b):
 
     return c
 
-#
+###
 def arePrizesOK(first, second, third):
     if first < second:
         return  False
@@ -445,14 +441,14 @@ def arePrizesOK(first, second, third):
         return False
     return True
 
-#
+###
 def howManySundays(n, startDay):
     dict = {"Monday" : 1, "Tuesday" : 2, "Wednesday":3, "Thursday" : 4, "Friday" : 5,"Saturday":6, "Sunday":0}
 
     t = n + dict[startDay]
     return t/7
 
-#
+###
 def chartFix(chart):
     toRemove = []
     for i in range(len(chart)):
@@ -466,7 +462,7 @@ def chartFix(chart):
         res = min(res, toRemove[len(toRemove) - i - 1] + i)
     return res
 
-#
+###
 def rectanglesIntersection(a, b, c, d):
 
     intersection = []
@@ -486,13 +482,13 @@ def rectanglesIntersection(a, b, c, d):
 
     return  intersection[0] * intersection[1]
 
-#
+###
 def charactersRearrangement(string1, string2):
     string1 = sorted(string1)
     string2 = sorted(string2)
     return string1==string2
 
-#
+###
 def isCorrectSentence(inputString):
 
     leadChar = inputString[0]
@@ -504,7 +500,7 @@ def isCorrectSentence(inputString):
     else:
         return False
 
-#
+###
 def digitCharactersSum(ch1, ch2):
     x1 = ord(ch1) - ord('0')
     x2 = ord(ch2) - ord('0')
@@ -513,7 +509,7 @@ def digitCharactersSum(ch1, ch2):
     else:
         return '1' + chr(ord('0') + (x1 + x2) % 10)
 
-#
+###
 def isSmooth(arr):
     l = len(arr)
     if l%2 == 0: t = arr[l/2]+arr[l/2-1]
@@ -523,7 +519,7 @@ def isSmooth(arr):
         return True
     return False
 
-#
+###
 def factorizedGCD(a, b):
     j = 0
     result = 1
@@ -535,7 +531,7 @@ def factorizedGCD(a, b):
             j += 1
     return result
 
-#
+###
 def videoPart(part, total):
 
     def getSeconds(time):
@@ -556,7 +552,7 @@ def videoPart(part, total):
     divisor = gcd(partTime, totalTime)
     return [partTime / divisor, totalTime / divisor]
 
-#
+###
 def sumOfPowers(n, divisor):
     s = 0
     for i in range(1, n+1):
@@ -570,7 +566,7 @@ def sumOfPowers(n, divisor):
         s+= count
     return s
 
-#
+###
 def isPangram(sentence):
     found = []
     result = True
@@ -589,11 +585,11 @@ def isPangram(sentence):
 
     return result
 
-#
+###
 def arithmeticProgression(element1, element2, n):
     return 0 if (element2 < element1) else (element1 + (n - 1) * abs(element1 - element2))
 
-#
+###
 def noAdjacentBits(a):
 
     lastBit = 0
@@ -607,7 +603,7 @@ def noAdjacentBits(a):
 
     return True
 
-#
+###
 def extractEachKth(inputArray, k):
 
     result = []
@@ -616,7 +612,7 @@ def extractEachKth(inputArray, k):
             result.append(inputArray[i])
     return result
 
-#
+###
 def zFunctionNaive(s):
     t = []
     for i in range(len(s)):
@@ -627,14 +623,14 @@ def zFunctionNaive(s):
         t.append(c)
     return t
 
-#
+###
 def squarePerimeter(n):
     result = 0
     for i in range(4):
         result += n
     return result
 
-#
+###
 def robotWalk(a):
     minX = 0
     minY = -1
@@ -671,103 +667,3 @@ def robotWalk(a):
             minX = x
 
     return False
-
-#
-def rightTriangle(sides):
-    sides = sorted(sides)
-    if (sides[0]**2 + sides[1]**2 == sides[2]**2): return True
-    return False
-
-#
-def bfsComponentSize(matrix):
-    visited = [False for i in range(len(matrix))]
-    queue = []
-    componentSize = 0
-
-    visited[1] = True
-    queue.append(1)
-    while len(queue) > 0:
-        currentVertex = queue.pop()
-        visited[currentVertex] = True
-        componentSize += 1
-        for nextVertex in range(len(matrix)):
-            if matrix[currentVertex][nextVertex] and not visited[nextVertex]:
-                visited[nextVertex] = True
-                queue.append(nextVertex)
-
-    return componentSize
-
-#
-def waterTubes(water, flowPerMinute):
-    result = 0
-
-    for i in range(len(water)):
-        minutes = water[i] / flowPerMinute[i]
-        if water[i] % flowPerMinute[i] != 0:
-            minutes += 1
-
-        if result < minutes:
-            result = minutes
-    return result
-
-#
-def isEarlier(time1, time2):
-     if (time1[0] * 60 + time1[1] < time2[0] * 60 + time2[1]): return True
-
-     return False
-
-#
-def dfsComponentSize(matrix, vertex):
-
-    def dfs(currentVertex, visited):
-        visited[currentVertex] = True
-        componentSize = 1
-        for nextVertex in range(len(matrix)):
-            if matrix[currentVertex][nextVertex] and not visited[nextVertex]:
-                componentSize += dfs(nextVertex, visited)
-        return componentSize
-
-    visited = []
-
-    for i in range(len(matrix)):
-        visited.append(False)
-
-    componentSize = dfs(vertex, visited)
-
-    return componentSize
-
-#
-def quickSort(a, l, r):
-
-    if l >= r:
-        return a
-
-    x = a[l]
-    i = l
-    j = r
-
-    while i <= j:
-        while a[i] < x:
-            i += 1
-        while a[j] > x:
-            j -= 1
-        if i <= j:
-            t = a[i]
-            a[i] = a[j]
-            a[j] = t
-            i += 1
-            j -= 1
-
-    quickSort(a, l, j)
-    quickSort(a, i, r)
-
-    return a
-
-#
-def isIPv4Address(inputString):
-    s = inputString.split('.')
-    if len(s) != 4: return False
-    for each in s:
-        if (len(each)==0) or (not each.isdigit()) or (not 0 <= int(each)<= 255):
-            return False
-    return True
