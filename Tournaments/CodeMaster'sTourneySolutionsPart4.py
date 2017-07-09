@@ -107,3 +107,101 @@ def firstNotDivisible(divisors, start):
         if all(start % x for x in divisors):
             return start
         start+= 1
+
+###
+def toDecimal(k, n):
+
+    result = 0
+    power = 1
+    for i in range(len(n) - 1, -1, -1):
+        result += int(n[i]) * power
+        power *= k
+
+    return result
+###
+def isEarlier(time1, time2):
+    if  time1 < time2 :
+        return True
+    return False
+
+###
+def newNumeralSystem(number):
+    s = "#ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    n = s.index(number)
+    i = 0
+    t = ["A" + " + " + number]
+    i = 1
+    counter = n/2 if n %2 == 0 else n/2 + 1
+    while i < counter:
+        x = n - i
+        t.append(s[i+1] + " + " +  s[x])
+        i+= 1
+
+    return t
+
+###
+def digitsProduct(product):
+
+    answerDigits = []
+    answer = 0
+
+    if product == 0:
+        return 10
+
+    if product == 1:
+        return 1
+
+    for divisor in range(9, 1, -1):
+        while product % divisor == 0:
+            product /= divisor
+            answerDigits.append(divisor)
+
+    if product > 1:
+        return -1
+
+
+    for i in range(0, len(answerDigits)):
+        answer = answer + answerDigits[i]*10**i
+    return answer
+
+###
+def bfsComponentSize(matrix):
+    visited = [False for i in range(len(matrix))]
+    queue = []
+    componentSize = 0
+
+    visited[1] = True
+    queue.append(1)
+    while len(queue) > 0:
+        currentVertex = queue.pop()
+        visited[currentVertex] = True
+        componentSize += 1
+        for nextVertex in range(len(matrix)):
+            if  matrix[currentVertex][nextVertex] and not visited[nextVertex]:
+                visited[nextVertex] = True
+                queue.append(nextVertex)
+
+    return componentSize
+
+###
+def increaseNumberRoundness(n):
+
+    gotToSignificant = False
+    while n > 0:
+        if n % 10 == 0 and gotToSignificant:
+            return True
+        elif n % 10 != 0:
+            gotToSignificant = True
+        n /= 10
+
+    return False
+
+###
+def maxDigit(n):
+
+    result = 0
+    while n > 0:
+        result = max(result, n % 10)
+        n /= 10
+
+    return result
