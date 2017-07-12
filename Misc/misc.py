@@ -528,3 +528,13 @@ def arrayCenter(A):
     avgA = avg(A)
     B = [ i for i in A if abs(i - avgA) < minA ]
     return B
+
+###
+def maximumSubsetProduct(a):
+    negatives = [i for i in a if i < 0]
+    positives = [i for i in a if i > 0]
+    if len(a) == 1:
+        return 1
+    if len(negatives) % 2 == 1:
+        return max(negatives)
+    return 1
