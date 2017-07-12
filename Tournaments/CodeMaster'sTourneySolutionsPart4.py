@@ -205,3 +205,74 @@ def maxDigit(n):
         n /= 10
 
     return result
+
+###
+def partialSort(input, k):
+    answer = []
+    infinity = 10 ** 9
+
+    for i in range(k):
+        index = 0
+        j = 0
+        for j in range(len(input)):
+            if input[j] < input[index]:
+                index = j
+        answer.append(input[index])
+        input[index] = infinity
+    for i in range(len(input)):
+        if input[i] != infinity:
+            answer.append(input[i])
+
+    return answer
+
+###
+def primeFactors(n):
+    f = []
+    d = 2
+
+    while n >= 2:
+        if n % d == 0:
+            f.append(d)
+            n /= d
+        else:
+            d += 1
+    return f
+
+###
+def chessBoardCellColor(cell1, cell2):
+
+    def getX(pos):
+        return ord(pos[0]) - ord('A')
+    def getY(pos):
+        return ord(pos[0]) - ord('1')
+
+    sum1 = getX(cell1[0]) + getY(cell1[1])
+    sum2 = getX(cell2[0]) + getY(cell2[1])
+    if sum1%2 == sum2%2:
+        return True
+    return False
+
+###
+def isDivisibleBy6(inputString):
+
+    digitSum = 0
+    leftBound = ord('0')
+    rightBound = ord('9')
+    answer = []
+    mask = list(inputString)
+    asteriskPos = -1
+
+    for i in range(len(mask)):
+        if (leftBound <= ord(mask[i]) and
+          ord(mask[i]) <= rightBound):
+            digitSum += ord(mask[i]) - leftBound
+        else:
+            asteriskPos = i
+
+    for i in range(10):
+        if (digitSum + i) % 3 == 0:
+            mask[asteriskPos] = chr(leftBound + i)
+            if  (int(mask[len(mask) - 1] - leftBound) % 2 == 0 :
+                answer.append(''.join(mask))
+
+    return answer

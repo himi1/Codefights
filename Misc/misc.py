@@ -504,3 +504,27 @@ def caesarBoxCipherEncoding(s):
         for j in range(n):
             r+=s[n*j+i]
     return r
+
+###
+def checkBlanagrams(word1, word2):
+    from collections import Counter
+    t = Counter(word1) - Counter(word2)
+    return sum(abs(x) for x in t.values()) == 1
+
+###
+def electionsWinners(votes, k):
+    c = 0
+    votes = sorted(votes)
+    for i in votes:
+        if (i + k > votes[-1]): c+= 1
+    if (c == 0 and votes[-1] > votes[-2]):
+        c+= 1
+    return c
+
+###
+def avg(x): return sum(x)/float(len(x))
+def arrayCenter(A):
+    minA = min(A)
+    avgA = avg(A)
+    B = [ i for i in A if abs(i - avgA) < minA ]
+    return B
