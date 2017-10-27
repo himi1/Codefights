@@ -291,3 +291,44 @@ def sequencePeakElement(sequence):
         else:
             right = middle - 1
     return sequence[left]
+
+###
+def charactersRearrangement(string1, string2):
+    characters1 = list(string1)
+    characters2 = list(string2)
+    correct = True
+
+    characters1.sort()
+    characters2.sort()
+
+    for i in range(max(len(characters1), len(characters2))):
+        if (i >= len(characters1) or i >= len(characters2)
+           or characters1[i] != characters2[i]):
+            correct = False
+            break
+
+    return correct
+
+###
+def arrayKthGreatest(inputArray, k):
+
+    for i in range(k):
+        indexOfMaximum = i
+        tmp = inputArray[i]
+
+        for j in range(i + 1, len(inputArray)):
+            if inputArray[j] > inputArray[indexOfMaximum]:
+                indexOfMaximum = j
+
+        inputArray[i] = inputArray[indexOfMaximum]
+        inputArray[indexOfMaximum] = tmp
+
+    return  inputArray[k - 1]
+
+###
+def houseNumbersSum(inputArray):
+    s = 0
+    for a in inputArray:
+        s += a
+        if a == 0:
+            return s
