@@ -1965,7 +1965,6 @@ def largestFullBinaryTree(parent):
 
 ###
 def toAndFro(a, b, t):
-
     length = abs(b - a)
     t %= 2 * length
     if t <= length:
@@ -2279,4 +2278,685 @@ def isPrime(n):
             return False
         i+= 2
     
+    return True
+
+###
+def isPalindrome(string):
+    for i in range(len(string)//2):
+        if string[i] != string[len(string)-1 - i]:
+            return False
+    return True
+
+def isOneSwapEnough(inputString):
+    inputString = list(inputString)
+    if isPalindrome(inputString):
+        return True
+    
+    for i in range(len(inputString)):
+        for j in range(len(inputString)):
+            str = inputString[:]
+            str[i] = inputString[j]
+            str[j] = inputString[i]
+            if isPalindrome(str):
+                return True
+    return False
+
+###
+def maxSumSegments(inputArray):
+
+    result = []
+    for i in range(1, len(inputArray) + 1):
+        sum = 0
+        mxSum = 0
+        index = -1
+        for j in range(len(inputArray)):
+            sum += inputArray[j]
+            if j >= i:
+                sum -= inputArray[j - i]
+            if j >= i - 1 and (index == -1 or sum > mxSum):
+                mxSum = sum
+                index = j - i + 1
+        result.append(index)
+    return result
+
+###
+def numberOfTriangles(sticks):
+    res = 0
+    for i in range(len(sticks)):
+        k = i + 2
+        for j in range(i + 1, len(sticks)):
+            while  k < len(sticks) and sticks[k] < sticks[i] + sticks[j]:
+                k += 1
+            res += k - j - 1
+    return res
+
+###
+def seatsInTheater(nCols, nRows, col, row):
+    temp1 = nCols - (col-1)
+    temp2 = nRows - row
+    return temp1*temp2
+
+###
+def arrayMedian(sequence):
+    n = len(sequence)
+    sequence.sort()
+
+    if (n % 2 == 0):
+        return (sequence[n / 2] + sequence[n / 2 - 1]) / 2.0
+    else:
+        return  sequence[n / 2]
+
+###
+def addDigits(a, b, n):
+    rem = a%b 
+
+    l = []
+    l.append(str(a))
+
+    for i in range(n):
+        best = -1
+        for digit in range(9, -1, -1):
+            #print digit
+            if (rem * 10 + digit) % b == 0:
+                best = digit
+                break
+        if best == -1: break
+        l.append(str(best))
+        rem = (rem * 10 + best) % b
+
+    return ''.join(l)
+
+###
+def onlyEvenNumbers(left, right):
+    return range(left+(left%2),right+1,2)
+
+###
+def arrayMinimumAboveBound(inputArray, bound):
+    inputArray.sort()
+    for i in range(len(inputArray)):
+        if inputArray[i]>bound:
+            return inputArray[i]
+
+###
+def isTournament(n, fromV, toV):
+
+    edges = []
+
+    for i in range(n):
+        line = []
+        for j in range(n):
+            line.append(False)
+        edges.append(line)
+
+    for i in range(len(fromV)):
+        edges[ fromV[i] ][ toV[i] ] = True
+
+    for i in range(n):
+        for j in range(i + 1, n):
+            if edges[i][j] == edges[j][i]:
+                return False
+
+    if len(fromV) != n * (n - 1) / 2:
+        return False
+    return True
+
+###
+def rightmostRoundNumber(inputArray):
+    r = -1
+    for i, a in enumerate(inputArray):
+        if a % 10 == 0:
+            r = i
+
+    return r
+
+###
+def arrayMaxConsecutiveSum(a, k):
+    out = []
+    s = 0
+    for num in a:
+        s += num
+        out.append(s)
+    
+    maxS = -1
+    for i in range(k-1, len(a)):
+        c = out[i] if i == k-1 else out[i] - out[i-k]      
+        if c > maxS:
+            maxS = c
+            
+    return maxS
+
+###
+def countSumOfTwoRepresentations3(n, l, r):
+    result = 0
+
+    i = 1
+    while i <= n - i:
+        if l <= n - i and i <= r:
+            result += 1
+        i += 1
+
+    return result
+
+###
+def unusualLexOrder(words):
+    l = []
+    for w in words:
+        l += [w[::-1]]
+    l.sort ()
+    return [t[::-1] for t in l]
+
+###
+def minimalMultiple(divisor, lowerBound):
+    if lowerBound % divisor == 0:
+        return lowerBound
+    return (lowerBound / divisor + 1) * divisor
+
+###
+def isIdentityMatrix(m):
+    for i in range(len(m)):
+        if m[i][i] == 1 and m[i].count(1) == 1:
+            continue
+        else:
+            return False
+    return True
+
+###
+def minimalNumberOfCoins(coins, price):
+
+    result = 0
+
+    for i in range(len(coins) - 1, -1, -1):
+        result += price / coins[i]
+        price %= coins[i]
+
+    if (price):
+        return -1
+
+    return result
+
+###
+def subsetsSequence(sets):
+
+    def isSubset(setA, setB):
+        j = 0
+        for i in range(len(setB)):
+            if j < len(setA) and setA[j] == setB[i]:
+                j += 1
+        if j == len(setA):
+            return True
+        else:
+            return False
+
+    supersets = [0] * len(sets)
+
+    for i in range(len(sets)):
+        sets[i].sort()
+
+    for i in range(len(sets)):
+        for j in range(i + 1, len(sets)):
+            if isSubset(sets[i], sets[j]):
+                supersets[i] += 1
+            if isSubset(sets[j], sets[i]):
+                supersets[j] += 1
+
+    supersets.sort()
+
+    for i in range(len(sets)):
+        if supersets[i] < i:
+            return False
+
+    return True
+
+###
+def fastSymmetrization(a):
+    x=len(a)-1
+    y=len(a[0])-1
+    for i in range(len(a)):
+        for j in range(len(a[0])):
+            if a[i][j]<>"*":
+                c=a[i][j]
+                print i, x-i
+                if a[x-i][j]=="*" or a[x-i][j]==c:
+                    a[x-i][j]=c
+                else:
+                    return []
+                if a[i][y-j]=="*" or a[i][y-j]==c:
+                    a[i][y-j]=c
+                else:
+                    return []
+                if a[x-i][y-j]=="*" or a[x-i][y-j]==c:
+                    a[x-i][y-j]=c
+                else:
+                    return []
+    return a
+
+###
+def findTheRemainder(a, b):
+    return a % b
+
+###
+def matrixTrace(matrix):
+  res = 0
+  for i in range(len(matrix)):
+    for j in range(len(matrix[0])):
+      if(i == j):
+        res +=matrix[i][j]
+        
+  return res
+
+###
+def zigzag(a):
+
+    best = 1
+    left = 0
+    while left < len(a):
+        right = left + 1
+        while right < len(a):
+            if right == left + 1:
+                if a[left] == a[right]:
+                    break
+            else:
+                if ((a[right - 1] - a[right - 2]) *
+                    (a[right - 1] - a[right]) <= 0):
+                    break
+            right += 1
+        best = max(best, right - left)
+        left = right
+        if left < len(a) and a[left-1]!=a[left] :
+            left -= 1
+
+    return best
+
+###
+def hammingDistance(string1, string2):
+    res = 0
+    for i in range(len(string1)):
+        if string1[i] != string2[i]:
+            res += 1
+    return res
+
+###
+def equationSolutions(l, r):
+    res = 0
+    for i in xrange(l, r + 1):
+        for j in xrange(l, r+1):
+            if (i * i * i == j * j): res+= 1
+    
+    return res
+
+###
+def reverseOnDiagonals(matrix):
+    n = len(matrix)
+    for i in range(0,n/2):
+        temp = matrix[i][i]
+        matrix[i][i] = matrix[n-i-1][n-i-1]
+        matrix[n-i-1][n-i-1] = temp
+        temp = matrix[n-i-1][i]
+        matrix[n-i-1][i] = matrix[i][n-i-1]
+        matrix[i][n-i-1] = temp
+    return matrix
+
+###
+def mostFrequentDigitSum(n):
+    a = [n]
+    while a[-1]:
+        a.append(a[-1] - stepper(a[-1]))
+    a = [stepper(x) for x in a]
+    t1 = t2 = 0
+    for i in a:
+        c = a.count(i)
+        if c > t2:
+            t2 = c
+            t1 = i
+        elif c == t2:
+            t1 = max(t1, i)
+    return t1
+    
+def stepper(n):
+    return sum(int(x) for x in str(n))
+
+###
+def robotPath(instructions, bound):
+
+    dx = [-1, 0, 1, 0]
+    dy = [ 0, 1, 0, -1]
+    directions = 'LURD'
+    x = 0
+    y = 0
+
+    for i in range(len(instructions)):
+        dirIndex = 0
+        for j in range(1, 4):
+            if instructions[i] == directions[j]:
+                dirIndex = j
+        if (abs(x + dx[dirIndex]) <= bound
+        and abs(y + dy[dirIndex]) <= bound):
+            x += dx[dirIndex]
+            y += dy[dirIndex]
+
+    return [x, y]
+
+###
+def isPower(n):
+
+    if n == 1:
+        return True
+
+    for i in range(2, n):
+        if n % i == 0:
+            tmp = n
+            while n % i == 0:
+                n /= i
+            if n == 1:
+                return  True 
+            n = tmp
+    return False
+
+###
+def avoidObstacles(inputArray):
+
+    i = 1
+    while True:
+        for j in range(len(inputArray)):
+            if inputArray[j] % i == 0:
+                break
+            if i == len(inputArray) - 1:
+                return i
+        i += 1
+
+###
+def boxPiles(a):
+    a.sort()
+    piles = []
+    for each in a:
+        for p in piles:
+            if len(p) <= each:
+                p.append(each)
+                break
+        else: piles.append([each])
+    return len(piles)
+
+###
+def lrSegmentNumber(l, r):
+    return int(''.join([str(i) for i in range(l, r+1)]))
+
+###
+def isDiagonalMatrix(matrix):
+    n = len(matrix)
+    m = len(matrix[0])
+    for i in range(n):
+        for j in range(m):
+            if matrix[i][j] != 0 and i!=j:
+                return False
+    return True
+
+###
+def isInformationConsistent(evidences):
+
+    for j in range(len(evidences[0])):
+        innocent = False
+        guilty = False
+        for i in range(len(evidences)):
+            cur = evidences[i][j]
+            if cur == -1:
+                innocent = True
+            elif cur == 1:
+                guilty = True
+
+        if innocent and guilty:
+            return False
+
+    return True
+
+###
+def concatenateNumbers(a, b):
+    return int(`a`+`b`)
+
+###
+def isSkewSymmetricMatrix(matrix):
+    for i in range(len(matrix)):
+        for j in range(len(matrix)):
+            if  matrix[i][j] != -matrix[j][i] :
+                return False
+    return True
+
+###
+def inversePermutation(permutation):
+    p=[0]*len(permutation)
+    for i in range(len(permutation)):
+        p[permutation[i]-1]=i+1
+    return p
+
+###
+def subtractionByRegrouping(minuend, subtrahend):
+    res =[]
+    while(minuend > 0):
+        x = minuend % 10
+        y = subtrahend % 10
+        if x < y:
+            x += 10
+            minuend -= 10
+            
+        res.append(x);
+
+        minuend = minuend/10
+        subtrahend = subtrahend/10
+    
+    return res
+
+###
+def swapDiagonals(matrix):
+    n = len(matrix)
+    for i in range(n):
+        temp = matrix[i][i]
+        matrix[i][i] = matrix[i][n - 1 - i]
+        matrix[i][n - 1 - i] = temp
+    return matrix
+
+###
+def create2DArray(lengths):
+
+    result = []
+
+    for i in range(len(lengths)):
+        line = []
+        for j in range(lengths[i]):
+            line.append(j)
+        result.append(line)
+
+    return result
+
+###
+def digitalSumSort(a):
+
+    def digitalSum(n):
+        digitalSumValue = 0
+        while n > 0:
+            digitalSumValue += n % 10; n /= 10
+        return digitalSumValue
+
+    buckets = dict()
+    for i in range(len(a)):
+        digitalSumValue = digitalSum(a[i])
+        if digitalSumValue not in buckets:
+            buckets[digitalSumValue] = []
+        buckets[digitalSumValue].append(a[i])
+
+    b = []
+    for digitalSumValue in sorted(buckets):
+        bucket = buckets[digitalSumValue]
+        bucket.sort()
+        for i in range(len(bucket)):
+            b.append(bucket[i])
+
+    return b
+
+###
+def reverseToSort(a):
+    for i in range(len(a)):
+        if a.count(a[i]) != 1:
+            return 0 
+        for j in range(i + 1, len(a) + 1):
+            if a[:i]+ a[i:j][::-1]+ a[j:] == sorted(a):
+                return 9 
+    return 0
+
+###
+def isPermutation(n, a):
+    a.sort() 
+    
+    for i in range(0,n):
+        if a[i] != (i+1): return False 
+    return True
+
+###
+def bishopAndPawn(b, p):
+    return abs(ord(b[0]) - ord(p[0])) == abs(ord(b[1]) - ord(p[1]))
+
+###
+def calculationsWithCoins(a, b, c):
+    return len(set([a,b,c,a+b,b+c,a+c, a+b+c]))
+
+###
+def shareAnApple(a, b):
+    return a-b == 2
+
+###
+def truncateString(s):
+    while len(s) > 0:
+        if int(s[0]) % 3 == 0:
+            s = s[1:]
+        elif int(s[-1]) % 3 == 0:
+            s = s[:-1]
+        elif int(s[-1] + s[0]) % 3 == 0:
+            s = s[1:-1]
+        else:
+            break
+    return s
+
+###
+def htmlEndTagByStartTag(startTag):
+
+    result = ['<', '/']
+    position = 1
+    while  startTag[position] not in '> ':
+        result.append(startTag[position])
+        position += 1
+    result.append('>')
+    return ''.join(result)
+
+###
+def isPrime(n):
+    divisor = 2
+    while n > divisor:
+        if n % divisor == 0:
+            return False
+        else:
+            divisor += 1
+    return True
+
+###
+def differentSubstringsTrie(a):
+    res = set()
+    for i in range(len(a)):
+        for j in range(i, len(a)):
+            res.add(a[i:j + 1])
+    return len(res)
+
+###
+def increasingNumber(x, n):
+    for i in xrange(1, n + 1):
+        while x % i != 0:
+            x += 1
+    return x
+
+###
+def quasifactorial(n):
+    answer = 1
+    for i in range(2, n + 1):
+        answer *= i
+        answer -= 1
+    return answer
+
+###
+def digitSum(n):
+    sum = 0
+    while n > 0:
+        sum +=  n % 10
+        n /= 10
+
+    return sum
+
+###
+def absoluteValuesSumMinimization(a):
+    l = len(a)
+    if(l % 2 == 0):
+        if(a[l/2]>a[l/2-1]):
+            return a[l/2-1]
+    return a[l/2]
+
+###
+def champernowneDigit(n):
+    s = ""
+    for i in xrange(0, n + 1): s += `i`
+    return int(s[n])
+
+###
+def formatString(input):
+    return ' '.join(input.split())
+
+###
+def removeDigits(n, k):
+    m = []
+    n = str(n)
+    for i in range(len(n)-k+1):
+        m.append(int(n[i:i+k]))
+    return [min(m),max(m)]
+
+###
+def graphEdges(matrix):
+    c=0
+    for i in matrix:
+        c += sum(i)
+    return c/2
+
+###
+def buildPalindrome(s):
+    def isPal(x):
+        return x==x[::-1]
+    
+    for i, x in enumerate(s):
+        temp = s[:i]
+        mayBePal = s + temp[::-1]
+        if isPal(mayBePal): return mayBePal
+
+###
+def parabole(a, b, c, x):
+    return a * x ** 2 + b * x + c
+
+###
+def rangeConsecutiveXor(l, r):
+    return helper(l-1)^helper(r)
+
+def helper(n):
+    a = [n,n,2,2,n+2,n+2,0,0]
+    return a[n%8]
+
+###
+def regularBracketSequence2(sequence):
+
+    stack = []
+    for i in range(len(sequence)):
+        if (len(stack) > 0
+            and stack[len(stack) - 1] == '(' and sequence[i] == ')'):
+            stack.pop()
+            continue
+        if (len(stack) > 0
+            and stack[len(stack) - 1] == '[' and sequence[i] == ']' ):
+            stack.pop()
+            continue
+        stack.append(sequence[i])
+
+    if len(stack) != 0:
+        return False
     return True
